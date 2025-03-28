@@ -1,12 +1,14 @@
-package fr.iutfbleau.dotlink;
+package fr.iutfbleau.dotlink.controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import fr.iutfbleau.dotlink.models.Puzzle;
+import fr.iutfbleau.dotlink.views.GameActivity;
 
-public class AdapterPuzzleClickListener implements OnPuzzleClickListener{
+public class PuzzleController implements OnPuzzleClickListener {
     private Context context;
 
-    public AdapterPuzzleClickListener(Context context){
+    public PuzzleController(Context context) {
         this.context = context;
     }
 
@@ -16,5 +18,4 @@ public class AdapterPuzzleClickListener implements OnPuzzleClickListener{
         intent.putExtra("puzzle", puzzle);
         context.startActivity(intent);
     }
-
 }

@@ -1,12 +1,16 @@
-package fr.iutfbleau.dotlink;
+package fr.iutfbleau.dotlink.views;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import fr.iutfbleau.dotlink.R;
+import fr.iutfbleau.dotlink.controllers.OnPuzzleClickListener;
+import fr.iutfbleau.dotlink.models.Puzzle;
+
 import java.util.List;
 
 public class PuzzleAdapter extends RecyclerView.Adapter<PuzzleViewHolder> {
@@ -28,19 +32,27 @@ public class PuzzleAdapter extends RecyclerView.Adapter<PuzzleViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PuzzleViewHolder holder, int position) {
         Puzzle puzzle = puzzles.get(position);
-        Log.d("DEBUG", "Affichage du puzzle : " + puzzle.getNom());
         holder.textView.setText(puzzle.getNom());
-
-        if (puzzle.getPaires().isEmpty()) {
-            holder.textView.setEnabled(false);
-        }
-
-        PuzzleClickListener clickListener = new PuzzleClickListener(puzzle, listener);
-        holder.textView.setOnClickListener(clickListener);
+        holder.textView.setOnClickListener(new PuzzleClickHandler(puzzle, listener));
     }
 
     @Override
     public int getItemCount() {
         return puzzles.size();
+    }
+
+    private static class PuzzleClickHandler implements View.OnClickListener {
+        private Puzzle puzzle;
+        private OnPuzzleClickListener listener;
+
+        public PuzzleClickHandler(Puzzle puzzle, OnPuzzleClickListener listener) {
+            this.puzzle = puzzle;
+            this.listener = listener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onPuzzleClick(puzzle);
+        }
     }
 }

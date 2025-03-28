@@ -1,4 +1,4 @@
-package fr.iutfbleau.dotlink;
+package fr.iutfbleau.dotlink.views;
 
 public class SettingsActivity {
 

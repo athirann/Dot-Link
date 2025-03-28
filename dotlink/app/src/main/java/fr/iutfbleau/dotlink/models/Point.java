@@ -1,11 +1,11 @@
-package fr.iutfbleau.dotlink;
+package fr.iutfbleau.dotlink.models;
 
 import java.io.Serializable;
 
 public class Point implements Serializable {
     private int ligne, colonne;
 
-    public Point(int ligne, int colonne){
+    public Point(int ligne, int colonne) {
         this.ligne = ligne;
         this.colonne = colonne;
     }
@@ -30,5 +30,4 @@ public class Point implements Serializable {
     public int hashCode() {
         return 31 * ligne + colonne;
     }
-
 }

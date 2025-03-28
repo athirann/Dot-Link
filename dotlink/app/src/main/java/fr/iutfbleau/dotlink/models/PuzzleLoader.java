@@ -1,12 +1,11 @@
-package fr.iutfbleau.dotlink;
+package fr.iutfbleau.dotlink.models;
 
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +49,6 @@ public class PuzzleLoader {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(inputStream, "UTF-8");
 
-
             int eventType = parser.getEventType();
             String nom = null;
             int taille = -1;
@@ -81,7 +79,7 @@ public class PuzzleLoader {
                                 int ligne = Integer.parseInt(parser.getAttributeValue(null, "ligne"));
                                 int colonne = Integer.parseInt(parser.getAttributeValue(null, "colonne"));
                                 if (ligne < 0 || colonne < 0 || ligne >= taille || colonne >= taille) {
-                                    return null; // Coordonnées invalides
+                                    return null;
                                 }
 
                                 if (point1 == null) {
@@ -96,7 +94,7 @@ public class PuzzleLoader {
                         if (point1 != null && point2 != null) {
                             paires.add(new Paire(point1, point2));
                         } else {
-                            return null; // Paire invalide
+                            return null;
                         }
                     }
                 }
@@ -104,7 +102,7 @@ public class PuzzleLoader {
             }
 
             if (nom == null) {
-                nom = chemin.substring(chemin.lastIndexOf("/") + 1, chemin.lastIndexOf(".")); // Utiliser le nom du fichier si absent
+                nom = chemin.substring(chemin.lastIndexOf("/") + 1, chemin.lastIndexOf("."));
             }
 
             return new Puzzle(nom, taille, paires);
