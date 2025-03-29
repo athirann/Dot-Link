@@ -24,6 +24,23 @@ public class GameModel {
         }
     }
 
+    public boolean hasPathForPaire(Paire paire) {
+        return drawnPaths.containsKey(paire);
+    }
+
+    public void removePath(Paire paire) {
+        List<Point> path = drawnPaths.get(paire);
+        if (path != null) {
+            // Supprimer les points occupés par ce chemin, sauf les extrémités (points de la paire)
+            for (Point point : path) {
+                if (!isEndPoint(point, paire)) {
+                    occupiedPoints.remove(point);
+                }
+            }
+            drawnPaths.remove(paire);
+        }
+    }
+
     public int getCompletedCount() {
         return drawnPaths.size();
     }
@@ -67,5 +84,9 @@ public class GameModel {
 
     public boolean isPointOccupied(Point point) {
         return occupiedPoints.contains(point);
+    }
+
+    private boolean isEndPoint(Point point, Paire paire) {
+        return point.equals(paire.getPoint1()) || point.equals(paire.getPoint2());
     }
 }

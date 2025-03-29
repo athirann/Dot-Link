@@ -188,14 +188,10 @@ public class GameView extends View {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (touched != null) {
-                    controller.updatePath(touched);
-                }
+                controller.updatePath(touched);
                 break;
             case MotionEvent.ACTION_UP:
-                if (touched != null) {
-                    controller.endPath(touched);
-                }
+                controller.endPath(touched);
                 break;
         }
         return true;

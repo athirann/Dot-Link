@@ -45,6 +45,12 @@ public class GameController {
     public void startPath(Point start) {
         currentPaire = getPaireForPoint(start);
         if (currentPaire != null) {
+            // Vérifier si un chemin existe déjà pour cette paire
+            if (model.hasPathForPaire(currentPaire)) {
+                // Supprimer l'ancien chemin avant de commencer le nouveau
+                model.removePath(currentPaire);
+                view.updatePaths(model.getDrawnPaths());
+            }
             currentStart = start;
             currentPath = new ArrayList<>();
             currentPath.add(start);
@@ -53,7 +59,13 @@ public class GameController {
     }
 
     public void updatePath(Point touched) {
-        if (currentPath != null && touched != null && isAdjacent(currentPath.get(currentPath.size() - 1), touched)) {
+        if (touched == null) {
+            // Le doigt est sorti de la grille, annuler le chemin
+            cancelPath("Chemin annulé : hors de la grille !");
+            return;
+        }
+
+        if (currentPath != null && isAdjacent(currentPath.get(currentPath.size() - 1), touched)) {
             // Éviter les doublons dans le chemin
             if (!currentPath.contains(touched)) {
                 // Vérifier si le point appartient à une autre paire
@@ -81,7 +93,13 @@ public class GameController {
     }
 
     public void endPath(Point end) {
-        if (currentPaire != null && currentPath != null && end != null) {
+        if (end == null) {
+            // Le doigt est sorti de la grille, annuler le chemin
+            cancelPath("Chemin annulé : hors de la grille !");
+            return;
+        }
+
+        if (currentPaire != null && currentPath != null) {
             // Ajouter le point final au chemin s'il est adjacent et non déjà présent
             if (isAdjacent(currentPath.get(currentPath.size() - 1), end) && !currentPath.contains(end)) {
                 // Vérifier si le point final est valide (ne doit pas appartenir à une autre paire sauf si c'est le point d'arrivée)
@@ -120,6 +138,16 @@ public class GameController {
         currentPaire = null;
         currentPath = null;
         view.setCurrentPath(null, null);
+    }
+
+    public void cancelPath(String message) {
+        if (currentPath != null || currentPaire != null) {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            currentStart = null;
+            currentPaire = null;
+            currentPath = null;
+            view.setCurrentPath(null, null);
+        }
     }
 
     public void resetGame() {
