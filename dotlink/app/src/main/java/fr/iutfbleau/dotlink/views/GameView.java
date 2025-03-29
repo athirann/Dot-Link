@@ -1,6 +1,8 @@
 package fr.iutfbleau.dotlink.views;
 
+import android.app.Activity;
 import android.content.Context;
+import fr.iutfbleau.dotlink.views.SettingsActivity;
 import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -63,14 +65,19 @@ public class GameView extends View {
     }
 
     private void assignColorsToPaires() {
-        String[] fluoHex = {"#00FF00", "#00FFFF", "#FF00FF", "#FFFF00", "#FF6600", "#FF0033", "#9900FF"};
+        boolean achromate = SettingsActivity.isAchromateMode((Activity) getContext());
+
+        String[] couleurs = achromate
+                ? new String[] { "#999999", "#666666", "#AAAAAA", "#777777", "#BBBBBB" } // tons de gris
+                : new String[] { "#00FF00", "#00FFFF", "#FF00FF", "#FFFF00", "#FF6600", "#FF0033", "#9900FF" }; // fluo
+
         int i = 0;
         for (Paire paire : puzzle.getPaires()) {
             Paint paint = new Paint();
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(55);
             paint.setStrokeCap(Paint.Cap.ROUND);
-            paint.setColor(Color.parseColor(fluoHex[i % fluoHex.length]));
+            paint.setColor(Color.parseColor(couleurs[i % couleurs.length]));
             pathPaints.put(paire, paint);
             i++;
         }

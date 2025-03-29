@@ -37,6 +37,19 @@
         android:layout_margin="8dp"
         android:scrollbars="vertical" />
 
+    <!-- Bouton Paramètres -->
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⚙ Paramètres"
+        android:textSize="16sp"
+        android:background="@drawable/button_neon_cyan"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:padding="10dp" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
