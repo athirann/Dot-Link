@@ -2,12 +2,14 @@ package fr.iutfbleau.dotlink.controllers;
 
 import android.content.Context;
 import android.os.Handler;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 import fr.iutfbleau.dotlink.models.GameModel;
 import fr.iutfbleau.dotlink.models.Paire;
 import fr.iutfbleau.dotlink.models.Point;
 import fr.iutfbleau.dotlink.views.GameView;
 import fr.iutfbleau.dotlink.views.OnPuzzleCompleteListener;
+import android.content.SharedPreferences;
 import fr.iutfbleau.dotlink.views.OnScoreChangeListener;
 
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ public class GameController {
     private GameModel model;
     private GameView view;
     private Context context;
-    private Handler chronoHandler = new Handler();
     private List<OnPuzzleCompleteListener> completeListeners = new ArrayList<>();
     private List<OnScoreChangeListener> scoreListeners = new ArrayList<>();
     private Point currentStart;
@@ -28,18 +29,11 @@ public class GameController {
         this.model = model;
         this.view = view;
         this.context = context;
-        startChrono();
     }
 
-    private void startChrono() {
-        chronoHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                model.incrementTime();
-                notifyScoreChange();
-                chronoHandler.postDelayed(this, 1000);
-            }
-        }, 1000);
+
+    public void saveGameState() {
+        model.sauvegarder(context);
     }
 
     public void startPath(Point start) {
@@ -127,7 +121,6 @@ public class GameController {
                 view.updatePaths(model.getDrawnPaths());
                 notifyScoreChange();
                 if (model.getCompletedCount() == model.getTotalPairs()) {
-                    chronoHandler.removeCallbacksAndMessages(null);
                     notifyPuzzleComplete();
                 }
             } else {
@@ -153,8 +146,6 @@ public class GameController {
     public void resetGame() {
         model.reset();
         view.updatePaths(model.getDrawnPaths());
-        chronoHandler.removeCallbacksAndMessages(null);
-        startChrono();
         notifyScoreChange();
     }
 
@@ -167,16 +158,22 @@ public class GameController {
     }
 
     private void notifyPuzzleComplete() {
+        SharedPreferences prefs = context.getSharedPreferences("DotLinkSave", Context.MODE_PRIVATE);
+        prefs.edit().clear().apply();
         for (OnPuzzleCompleteListener listener : completeListeners) {
             listener.onPuzzleCompleted();
         }
     }
 
+
     private void notifyScoreChange() {
         for (OnScoreChangeListener listener : scoreListeners) {
-            listener.onScoreChanged(model.getCompletedCount(), model.getTotalPairs());
+            if (listener != null) {
+                listener.onScoreChanged(model.getCompletedCount(), model.getTotalPairs());
+            }
         }
     }
+
 
     private Paire getPaireForPoint(Point p) {
         for (Paire paire : model.getPuzzle().getPaires()) {

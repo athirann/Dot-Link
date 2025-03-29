@@ -1,6 +1,7 @@
 package fr.iutfbleau.dotlink.views;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,11 +22,23 @@ public class GameActivity extends Activity {
     private ScoreChangeHandler scoreHandler;
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (controller != null) {
+            controller.saveGameState();
+        }
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        chronoText = findViewById(R.id.chronoText);
+        Button pauseButton = findViewById(R.id.pauseButton);
+        PauseHandler pauseHandler = new PauseHandler(this, controller);
+        pauseButton.setOnClickListener(new PauseClickListener(pauseHandler));
+
         scoreText = findViewById(R.id.scoreText);
         resetButton = findViewById(R.id.resetButton);
         retourButton = findViewById(R.id.backButton);
@@ -37,14 +50,15 @@ public class GameActivity extends Activity {
             return;
         }
 
+
         GameModel model = new GameModel(puzzle);
+        model.chargerSauvegarde(this);
         gameView.setPuzzle(puzzle);
         controller = new GameController(model, gameView, this);
         gameView.setController(controller);
 
         completeHandler = new PuzzleCompleteHandler(this, controller);
-        scoreHandler = new ScoreChangeHandler(scoreText, chronoText, controller);
-
+        scoreHandler = new ScoreChangeHandler(scoreText, controller);
         controller.addPuzzleCompleteListener(completeHandler);
         controller.addScoreChangeListener(scoreHandler);
 
@@ -58,5 +72,8 @@ public class GameActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        SharedPreferences prefs = getSharedPreferences("DotLinkSave", MODE_PRIVATE);
+        prefs.edit().clear().apply();
     }
 }

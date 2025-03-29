@@ -1,6 +1,9 @@
 package fr.iutfbleau.dotlink.models;
 
 import java.util.ArrayList;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -89,4 +92,67 @@ public class GameModel {
     private boolean isEndPoint(Point point, Paire paire) {
         return point.equals(paire.getPoint1()) || point.equals(paire.getPoint2());
     }
+    public void chargerSauvegarde(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("DotLinkSave", Context.MODE_PRIVATE);
+        String nomSauvegarde = prefs.getString("puzzleName", null);
+
+        if (nomSauvegarde == null || !nomSauvegarde.equals(puzzle.getNom())) return;
+
+        this.secondsElapsed = prefs.getInt("elapsedTime", 0);
+
+        String pathData = prefs.getString("paths", "");
+        if (!pathData.isEmpty()) {
+            String[] chemins = pathData.split(";");
+            for (String chemin : chemins) {
+                String[] parts = chemin.split(":");
+                if (parts.length != 2) continue;
+
+                int index = Integer.parseInt(parts[0]);
+                if (index < 0 || index >= puzzle.getPaires().size()) continue;
+
+                Paire paire = puzzle.getPaires().get(index);
+                String[] pointsStr = parts[1].split("-");
+                List<Point> cheminPoints = new ArrayList<>();
+
+                for (String pointStr : pointsStr) {
+                    String[] coord = pointStr.split(",");
+                    if (coord.length == 2) {
+                        int col = Integer.parseInt(coord[0]);
+                        int lig = Integer.parseInt(coord[1]);
+                        cheminPoints.add(new Point(lig, col));
+                    }
+                }
+
+                drawnPaths.put(paire, cheminPoints);
+            }
+        }
+    }
+
+
+    public void sauvegarder(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("DotLinkSave", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putString("puzzleName", puzzle.getNom());
+
+        editor.putInt("elapsedTime", secondsElapsed);
+
+        StringBuilder pathsBuilder = new StringBuilder();
+        for (Paire paire : drawnPaths.keySet()) {
+            int index = puzzle.getPaires().indexOf(paire);
+            List<Point> chemin = drawnPaths.get(paire);
+            if (chemin != null && !chemin.isEmpty()) {
+                pathsBuilder.append(index).append(":");
+                for (Point point : chemin) {
+                    pathsBuilder.append(point.getColonne()).append(",").append(point.getLigne()).append("-");
+                }
+                pathsBuilder.deleteCharAt(pathsBuilder.length() - 1); // remove last dash
+                pathsBuilder.append(";");
+            }
+        }
+        editor.putString("paths", pathsBuilder.toString());
+
+        editor.apply();
+    }
+
 }
