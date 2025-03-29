@@ -69,7 +69,7 @@ public class GameView extends View {
 
         String[] couleurs = achromate
                 ? new String[] { "#999999", "#666666", "#AAAAAA", "#777777", "#BBBBBB" } // tons de gris
-                : new String[] { "#00FF00", "#00FFFF", "#FF00FF", "#FFFF00", "#FF6600", "#FF0033", "#9900FF" }; // fluo
+                : new String[] { "#00FF00", "#00FFFF", "#FF00FF", "#FFFF00", "#FF6600", "#FF0033", "#9900FF", "#5a3a22", "#1d4851", "#fffefe", "#7dcb6e", "#cc7271"}; // fluo
 
         int i = 0;
         for (Paire paire : puzzle.getPaires()) {

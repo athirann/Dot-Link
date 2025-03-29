@@ -1,6 +1,28 @@
-<puzzle nom="Niveau très difficile" taille="6">
-    <paire><point ligne="0" colonne="0"/><point ligne="5" colonne="5"/></paire>
-    <paire><point ligne="0" colonne="5"/><point ligne="5" colonne="0"/></paire>
-    <paire><point ligne="2" colonne="2"/><point ligne="3" colonne="3"/></paire>
-    <paire><point ligne="1" colonne="4"/><point ligne="4" colonne="1"/></paire>
+<puzzle nom="Niveau très difficile" taille="11">
+    <!-- Vert -->
+    <paire><point ligne="2" colonne="0"/><point ligne="5" colonne="9"/></paire>
+    <!-- Bleu -->
+    <paire><point ligne="2" colonne="1"/><point ligne="2" colonne="9"/></paire>
+    <!-- Rose -->
+    <paire><point ligne="7" colonne="0"/><point ligne="3" colonne="9"/></paire>
+    <!-- Jaune -->
+    <paire><point ligne="5" colonne="5"/><point ligne="9" colonne="8"/></paire>
+    <!-- Orange -->
+    <paire><point ligne="4" colonne="9"/><point ligne="9" colonne="9"/></paire>
+    <!-- Rouge -->
+    <paire><point ligne="6" colonne="9"/><point ligne="10" colonne="7"/></paire>
+    <!-- Violet -->
+    <paire><point ligne="6" colonne="6"/><point ligne="10" colonne="0"/></paire>
+    <!-- Marron -->
+    <paire><point ligne="6" colonne="5"/><point ligne="9" colonne="0"/></paire>
+    <!-- Bleu foncé -->
+    <paire><point ligne="8" colonne="0"/><point ligne="6" colonne="4"/></paire>
+    <!-- Blanc -->
+    <paire><point ligne="10" colonne="4"/><point ligne="9" colonne="7"/></paire>
+    <!-- Vert pastel -->
+    <paire><point ligne="6" colonne="1"/><point ligne="3" colonne="7"/></paire>
+    <!-- Rose pastel -->
+    <paire><point ligne="6" colonne="2"/><point ligne="4" colonne="7"/></paire>
+
+
 </puzzle>
