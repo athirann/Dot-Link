@@ -1,0 +1,9 @@
+<puzzle nom="Erreur" taille="-1">
+    <paire>
+        <point ligne="0" colonne="0" />
+        <point ligne="1" colonne="1" />
+        <point ligne="3" colonne = "9"/>
+    </paire>
+
+
+</puzzle>

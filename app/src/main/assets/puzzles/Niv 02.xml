@@ -1,0 +1,15 @@
+<puzzle  taille="7">
+    <!-- Vert -->
+    <paire><point ligne="0" colonne="0"/><point ligne="1" colonne="3"/></paire>
+    <!-- Bleu -->
+    <paire><point ligne="0" colonne="6"/><point ligne="1" colonne="4"/></paire>
+    <!-- Rose -->
+    <paire><point ligne="1" colonne="0"/><point ligne="1" colonne="2"/></paire>
+    <!-- Jaune -->
+    <paire><point ligne="4" colonne="1"/><point ligne="2" colonne="6"/></paire>
+    <!-- <Orange> -->
+    <paire><point ligne="1" colonne="6"/><point ligne="5" colonne="5"/></paire>
+    <!-- Rouge -->
+    <paire><point ligne="5" colonne="1"/><point ligne="6" colonne="4"/></paire>
+
+</puzzle>

@@ -1,0 +1,18 @@
+<puzzle  taille="5">
+    <paire>
+        <point ligne="0" colonne="0"  />
+        <point ligne="3" colonne="3"  />
+    </paire>
+    <paire>
+        <point ligne="0" colonne="2"  />
+        <point ligne="2" colonne="2"  />
+    </paire>
+    <paire> <!-- vert -->
+        <point ligne="1" colonne="0"  />
+        <point ligne="3" colonne="1"  />
+    </paire>
+    <paire> <!-- bleu -->
+        <point ligne="3" colonne="0"  />
+        <point ligne="4" colonne="1"  />
+    </paire>
+</puzzle>

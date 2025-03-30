@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="#555555" /> <!-- Gris foncé pour indiquer désactivé -->
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="true">
+        <selector>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <solid android:color="#666600" /> <!-- Même couleur que dans button_neon_yellow -->
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#222222" /> <!-- Fond gris foncé -->
+                    <stroke android:width="3dp" android:color="#FFFF00" /> <!-- Bordure jaune néon -->
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</selector>
