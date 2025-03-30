@@ -3,7 +3,6 @@ package fr.iutfbleau.dotlink.views;
 import android.app.AlertDialog;
 import android.content.Context;
 import fr.iutfbleau.dotlink.controllers.GameController;
-import fr.iutfbleau.dotlink.controllers.RetourController;
 
 public class PuzzleCompleteHandler implements OnPuzzleCompleteListener {
     private Context context;
@@ -16,11 +15,10 @@ public class PuzzleCompleteHandler implements OnPuzzleCompleteListener {
 
     @Override
     public void onPuzzleCompleted() {
-        RetourController retourController = new RetourController(context);
         new AlertDialog.Builder(context)
                 .setTitle("🎉 Bravo !")
-                .setMessage("Vous avez complété le puzzle en " + controller.getModel().getSecondsElapsed() + " secondes.")
-                .setPositiveButton("OK", (dialog, which) -> retourController.retourAuMenu())
+                .setMessage("Tu as terminé le puzzle !")
+                .setPositiveButton("OK", new OkClickListener())
                 .setCancelable(false)
                 .show();
     }

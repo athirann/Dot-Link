@@ -163,6 +163,7 @@ public class GameController {
         for (OnPuzzleCompleteListener listener : completeListeners) {
             listener.onPuzzleCompleted();
         }
+        view.setGameFinished(true);
     }
 
 

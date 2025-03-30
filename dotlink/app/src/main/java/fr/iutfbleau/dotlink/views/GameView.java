@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 public class GameView extends View {
+
+    private boolean gameFinished = false;
     private Puzzle puzzle;
     private int cellSize;
     private Paint gridPaint;
@@ -63,6 +65,11 @@ public class GameView extends View {
         this.currentPaire = paire;
         invalidate();
     }
+
+    public void setGameFinished(boolean finished) {
+        this.gameFinished = finished;
+    }
+
 
     private void assignColorsToPaires() {
         boolean achromate = SettingsActivity.isAchromateMode((Activity) getContext());
@@ -184,6 +191,7 @@ public class GameView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (gameFinished) return false;
         float x = event.getX();
         float y = event.getY();
         Point touched = getTouchedPoint(x, y);
