@@ -56,6 +56,7 @@ public class GameActivity extends Activity {
         gameView.setPuzzle(puzzle);
         controller = new GameController(model, gameView, this);
         gameView.setController(controller);
+        gameView.updatePaths(controller.getModel().getDrawnPaths());
 
         completeHandler = new PuzzleCompleteHandler(this, controller);
         scoreHandler = new ScoreChangeHandler(scoreText, controller);
@@ -73,7 +74,17 @@ public class GameActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
 
-        SharedPreferences prefs = getSharedPreferences("DotLinkSave", MODE_PRIVATE);
-        prefs.edit().clear().apply();
+        if (controller != null && controller.getModel().isComplete()) {
+            SharedPreferences prefs = getSharedPreferences("DotLinkSave", MODE_PRIVATE);
+            prefs.edit().clear().apply();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (controller != null) {
+            controller.saveGameState();
+        }
     }
 }

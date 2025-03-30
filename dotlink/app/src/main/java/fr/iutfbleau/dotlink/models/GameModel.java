@@ -92,6 +92,10 @@ public class GameModel {
     private boolean isEndPoint(Point point, Paire paire) {
         return point.equals(paire.getPoint1()) || point.equals(paire.getPoint2());
     }
+
+    public boolean isComplete() {
+        return getCompletedCount() == getTotalPairs();
+    }
     public void chargerSauvegarde(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("DotLinkSave", Context.MODE_PRIVATE);
         String nomSauvegarde = prefs.getString("puzzleName", null);
@@ -119,7 +123,11 @@ public class GameModel {
                     if (coord.length == 2) {
                         int col = Integer.parseInt(coord[0]);
                         int lig = Integer.parseInt(coord[1]);
-                        cheminPoints.add(new Point(lig, col));
+                        Point pt = new Point(lig, col);
+                        cheminPoints.add(pt);
+                        if (!isEndPoint(pt, paire)) {
+                            occupiedPoints.add(pt);
+                        }
                     }
                 }
 
@@ -127,6 +135,7 @@ public class GameModel {
             }
         }
     }
+
 
 
     public void sauvegarder(Context context) {
