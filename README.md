@@ -22,7 +22,7 @@ Le projet est entièrement développé en Java pour Android, et respecte les con
   
  ## Rapport d'avancement :
   
-  Pour une analyse détaillée du projet, veuillez consulter le rapport d'avancement [rapport.pdf](https://grond.iut-fbleau.fr/kabbouri/SAE41_2024/rapport.pdf), disponible dans ce dépôt. Ce document inclut des descriptions de fonctionnalités, des diagrammes de structure, et des réflexions personnelles des auteurs sur le développement du programme.
+  Pour une analyse détaillée du projet, veuillez consulter le rapport d'avancement [rapport.pdf](https://grond.iut-fbleau.fr/kabbouri/SAE41_2024/src/branch/master/rapport.pdf), disponible dans ce dépôt. Ce document inclut des descriptions de fonctionnalités, des diagrammes de structure, et des réflexions personnelles des auteurs sur le développement du programme.
 
 ## API officielle Android :
 
